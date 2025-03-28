@@ -16,6 +16,9 @@
 *.dvi
 *.xdv
 *-converted-to.*
+*.d
+*.fdb_latexmk
+*.run.xml
 # these rules might exclude image files for figures etc.
 # *.ps
 # *.eps
@@ -306,3 +309,19 @@ TSWLatexianTemp*
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
+
+### Editor ###
+## Vim & Emacs temp files:
+.*sw[op]
+*~
+
+### Mac OS X ###
+## Mac OS X metadata files:
+*.DS_Store
+
+## Target pdf
+coverletter.pdf
+resume*.pdf
+cv.pdf
+teachingstatement.pdf
+

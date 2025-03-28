@@ -1,0 +1,153 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+% Awesome CV LaTeX Template for Cover Letter
+%
+% This template has been downloaded from:
+% https://github.com/posquit0/Awesome-CV
+%
+% Authors:
+% Claud D. Park <posquit0.bj@gmail.com>
+% Lars Richter <mail@ayeks.de>
+%
+% Template license:
+% CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%
+
+
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+% A4 paper size by default, use 'letterpaper' for US letter
+\documentclass[11pt, a4paper]{./template/Awesome-CV/awesome-cv}
+
+% Configure page margins with geometry
+\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+
+% Specify the location of the included fonts
+\fontdir[fonts/]
+
+% Color for highlights
+% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
+%                 awesome-nephritis, awesome-concrete, awesome-darknight
+\colorlet{awesome}{awesome-darknight}
+% Uncomment if you would like to specify your own color
+% \definecolor{awesome}{HTML}{CA63A8}
+
+% Colors for text
+% Uncomment if you would like to specify your own color
+% \definecolor{darktext}{HTML}{414141}
+% \definecolor{text}{HTML}{333333}
+% \definecolor{graytext}{HTML}{5D5D5D}
+% \definecolor{lighttext}{HTML}{999999}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+
+%-------------------------------------------------------------------------------
+%    PERSONAL INFORMATION
+%    Comment any of the lines below if they are not required
+%-------------------------------------------------------------------------------
+% Available options: circle|rectangle,edge/noedge,left/right
+\photo[circle,noedge,left]{./lijun}
+\name{Dr. Lijun}{Zhu}
+\position{Senior Manager{\enskip\cdotp\enskip}Artificial Intelligence/Machine Learning/Data Science}
+\address{3505 Leighton Ridge Road, Plano, TX 75025}
+
+\mobile{(+1) 404-545-2619}
+\email{gatechzhu@gmail.com}
+% \homepage{www.lijunzhu.info}
+% \github{lijunzh}
+\linkedin{lijunzhugt}
+% \gitlab{gitlab-id}
+% \stackoverflow{SO-id}{SO-name}
+% \twitter{@twit}
+% \skype{skype-id}
+% \reddit{reddit-id}
+% \extrainfo{extra informations}
+
+%\quote{``Be the change that you want to see in the world."}
+
+
+%-------------------------------------------------------------------------------
+%    LETTER INFORMATION
+%    All of the below lines must be filled out
+%-------------------------------------------------------------------------------
+% The company to which you are applying
+\recipient
+  {Hiring Committee}
+	{The Computer Science Department\\The University Texas at Dallas \\Richardson, TX 75243}
+% The date on the letter, default is the date of compilation
+\letterdate{\today}
+% The title of the letter
+\lettertitle{Application for Part Time Lecturer - Computer Science}
+% How the letter is opened
+\letteropening{Dear Hiring Committee,}
+% How the letter is closed
+\letterclosing{Sincerely,}
+% Any enclosures with the letter
+\letterenclosure[Attached]{Curriculum Vitae, Teaching Philosophy}
+
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+% Print the header with above personal information
+% Give optional argument to change alignment(C: center, L: left, R: right)
+\makecvheader[R]
+
+% Print the footer with 3 arguments(<left>, <center>, <right>)
+% Leave any of these blank if they are not needed
+\makecvfooter
+  {\today}
+  {Lijun Zhu~~~·~~~Cover Letter}
+  {}
+
+
+% Print the title with above letter information
+\vspace{-1cm}
+\makelettertitle
+%-------------------------------------------------------------------------------
+%    LETTER CONTENT
+%-------------------------------------------------------------------------------
+\begin{cvletter}
+
+% \lettersection{About Me}
+	I am writing to express my keen interest in joining the University of Texas at Dallas as a faculty member. 
+	I received my Ph.D. degree in Electrical Engineering from Georgia Institute of Technology with a dissertation on machine learning for large-scale datasets and real-time deployment on embedded systems.
+	I am currently leading a group of data scientists and machine learning engineers in Walmart Global Tech to build large-scale machine learning platforms for retail applications.
+	I am confident that my blend of academic insight, industry experience, and commitment to student success will make a significant contribution to your department and the broader university community.
+
+% \lettersection{Why TI?}
+	Throughout my career, I have cultivated a deep passion for teaching and mentoring young professionals. 
+	This passion is evident in my experiences as a Ph.D. student, where I actively engaged with and supported my fellow students. 
+	I have also extended this passion into my professional roles at Texas Instruments and Walmart Global Tech, where I have consistently sought opportunities to share my knowledge and expertise with junior colleagues.
+	My commitment to education and student development is further exemplified by my annual guest lectures in collaboration with Prof. James Zhang.
+	My dedication to fostering academic and professional growth in students is also demonstrated by my active involvement in campus hiring, early career training, and mentoring initiatives. 
+	I have played a pivotal role in recruiting for campus hiring and internships, recognizing the importance of nurturing talent from the ground up. 
+	My efforts have directly contributed to the success of numerous students, providing them with valuable opportunities to gain practical experience and enhance their career prospects.
+	These roles have honed my ability to communicate complex concepts effectively and foster a stimulating learning environment.
+
+% \lettersection{Why Me?}
+	Beyond my teaching and mentoring endeavors, I have maintained a strong commitment to research.
+	My academic contributions include publishing papers in peer-reviewed conferences and journals, showcasing my commitment to advancing knowledge in our field. 
+	These initiatives underscore my dedication to academic advancement and my belief in the transformative power of research.
+	I have also been a vocal advocate for innovation within the industry and have spearheaded the establishment of an undergraduate mentoring program at the University of Arkansas. 
+	My industry experience, particularly in real-world applications, provides a unique perspective that I am eager to bring into the classroom, bridging the gap between theory and practice.
+	Furthermore, my connections within the industry are not only beneficial for research collaborations but also for creating recruitment opportunities for students.
+	This network is a valuable resource for both the university and its students, offering avenues for practical experience and career advancement.
+
+
+	Thank you for considering my application. I look forward to the opportunity to discuss my candidacy further.
+
+\end{cvletter}
+
+
+%-------------------------------------------------------------------------------
+% Print the signature and enclosures with above letter information
+\makeletterclosing
+
+\end{document}
