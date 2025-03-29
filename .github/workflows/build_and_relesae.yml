@@ -1,0 +1,25 @@
+name: Build and Release Resume
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up LaTeX
+        uses: xu-cheng/texlive-action@v2
+        with:
+          scheme: small
+          run: |
+            apk add make
+            make all
+
+      - name: "Check file existence"
+        uses: andstor/file-existence-action@v3
+        with:
+          files: "resume.pdf, cv.pdf, coverletter.pdf, teachingstatement.pdf"
