@@ -8,7 +8,7 @@ DEPOPT = -M -MP -MF
 CONTINUOUS = -pvc
 
 # List of LaTeX files to build
-TEX_FILES = resume_IC.tex resume_PM.tex cv.tex coverletter.tex teachingstatement.tex 
+TEX_FILES = resume.tex cv.tex coverletter.tex teachingstatement.tex 
 PDF_FILES = $(TEX_FILES:.tex=.pdf)
 BASE_FILES = $(TEX_FILES:.tex=)
 
@@ -17,12 +17,12 @@ BASE_FILES = $(TEX_FILES:.tex=)
 help:
 	@echo "Usage: make <target>"
 	@echo "Targets:"
-	@echo "  $(BASE_FILES:.pdf=): Build specific versions (e.g., make resume_PM)"
+	@echo "  $(BASE_FILES:.pdf=): Build specific versions (e.g., make resume)"
 	@echo "  all:        Build all versions"
 	@echo "  release:    Release all versions"
 	@echo "  clean:      Remove generated files"
 	@echo "  squeeze:    Squeeze temporary build files"
-	@echo "  edit:       Continuously build one document (e.g., make edit doc=resume_PM)"
+	@echo "  edit:       Continuously build one document (e.g., make edit doc=resume)"
 
 
 edit: $(doc).tex
