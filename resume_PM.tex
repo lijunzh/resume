@@ -18,14 +18,11 @@
 % CONFIGURATIONS
 %-------------------------------------------------------------------------------
 % A4 paper size by default, use 'letterpaper' for US letter
-\documentclass[11pt, a4paper]{moderncv}
+\documentclass[11pt, letterpaper]{./template/Awesome-CV/awesome-cv}
 
 % Configure page margins with geometry
-% \geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
-\geometry{left=1.4cm, top=0.8cm, right=1.4cm, bottom=1.5cm, footskip=.5cm}
-
-% Specify the location of the included fonts
-\fontdir[fonts/]
+ %\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+\geometry{left=1.4cm, top=1.0cm, right=1.4cm, bottom=1.5cm, footskip=.5cm}
 
 % Color for highlights
 % Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
@@ -79,35 +76,36 @@
 \AtEveryBibitem{\clearlist{note}}
 
 \AtEveryBibitem{%
-    \ifentrytype{online}
-    {}
-    {\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}}
+	\ifentrytype{online}
+	{}
+	{\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}}
 
 % define custom bib environment
 \defbibenvironment{mypubs}
- {\list
-     {}
-     {\setlength{\leftmargin}{\bibhang}%
-      \setlength{\itemindent}{-\leftmargin}%
-      \setlength{\itemsep}{\bibitemsep}%
-      \setlength{\parsep}{\bibparsep}}}
-  {\endlist}
-  {\item}
+{\list
+	{}
+	{\setlength{\leftmargin}{\bibhang}%
+	 \setlength{\itemindent}{-\leftmargin}%
+	 \setlength{\itemsep}{\bibitemsep}%
+	 \setlength{\parsep}{\bibparsep}}
+}
+{\endlist}
+{\item}
 
 %-------------------------------------------------------------------------------
-%	PERSONAL INFORMATION
-%	Comment any of the lines below if they are not required
+% PERSONAL INFORMATION
+% Comment any of the lines below if they are not required
 %-------------------------------------------------------------------------------
 % Available options: circle|rectangle,edge/noedge,left/right
 % \photo[circle, noedge, left]{lijun}
 \name{Lijun}{Zhu}
-\position{Artificial Intelligence{\enskip\cdotp\enskip}Machine Learning{\enskip\cdotp\enskip}Data Science}
+\position{Tech Leadership{\enskip\cdotp\enskip}Machine Learning{\enskip\cdotp\enskip}Data Science}
 \address{3505 Leighton Ridge Drive, Plano, TX 75025}
 
 \mobile{(+1)404-545-2619}
 \email{gatechzhu@gmail.com}
-% \homepage{www.lijunzhu.info}
-% \github{lijunzh}
+ \homepage{www.lijunzhu.info}
+ \github{lijunzh}
 \linkedin{lijunzhugt}
 % \gitlab{gitlab-id}
 % \stackoverflow{SO-id}{SO-name}
@@ -116,12 +114,14 @@
 % \reddit{reddit-id}
 % \medium{madium-id}
 % \kaggle{kaggle-id}
+% \hackerrank{hackerrank-id}
+% \telegram{telegram-username}
 % \googlescholar{googlescholar-id}{name-to-display}
 %% \firstname and \lastname will be used
 % \googlescholar{googlescholar-id}{}
 % \extrainfo{extra information}
 
-%\quote{``Be the change that you want to see in the world."}
+\quote{``It is only when they go wrong that machines remind you how powerful they are."}
 
 %-------------------------------------------------------------------------------
 \begin{document}
@@ -142,13 +142,13 @@
 %	CV/RESUME CONTENT
 %	Each section is imported separately, open each file in turn to modify content
 %-------------------------------------------------------------------------------
+\vspace{-8mm}
 \input{resume_PM/summary.tex}
-\vspace{-3mm}
 \input{resume_PM/experience.tex}
 \input{shared/education.tex}
 \input{resume_PM/services.tex}
 \input{shared/skills.tex}
-% \input{shared/publication.tex}
+ \input{shared/publication.tex}
 
 %-------------------------------------------------------------------------------
 \end{document}
