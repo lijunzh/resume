@@ -22,7 +22,7 @@ jobs:
             make release
 
       - name: Check file existence
-        uses: andstor/file-existence-action@v3
+        uses: thebinaryfelix/check-file-existence-action@v1
         with:
           files: "resume.pdf, cv.pdf, coverletter.pdf, teachingstatement.pdf"
 
