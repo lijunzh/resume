@@ -16,10 +16,9 @@ jobs:
       - name: Set up Texlive and build PDFs
         uses: xu-cheng/texlive-action@v2
         with:
-          scheme: small
+          scheme: full
           run: |
             apk add make
-            tlmgr install latexmk xelatex
             make release
 
       - name: "Check file existence"
