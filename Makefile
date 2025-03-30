@@ -56,7 +56,7 @@ release: all squeeze
 
 # Phony targets for each base file, explicitly depending on their .pdf counterparts
 .PHONY: $(BASE_FILES)
-$(BASE_FILES): %: %.pdf
+$(BASE_FILES): %: %.pdf 
 
 # Include auto-generated dependencies
 -include *.d

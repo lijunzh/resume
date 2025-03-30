@@ -13,13 +13,14 @@ jobs:
         with:
           submodules: true
 
-      - name: Set up LaTeX
+      - name: Set up Texlive and build PDFs
         uses: xu-cheng/texlive-action@v2
         with:
-          scheme: full
+          scheme: small
           run: |
             apk add make
-            make all
+            tlmgr install latexmk xelatex
+            make release
 
       - name: "Check file existence"
         uses: andstor/file-existence-action@v3
@@ -33,3 +34,5 @@ jobs:
           path: |
             resume.pdf
             cv.pdf
+            coverletter.pdf
+            teachingstatement.pdf
