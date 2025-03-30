@@ -53,7 +53,7 @@
 	defernumbers=true,
 	refsection=section
 	]{biblatex}
-\addbibresource{./context/lijun.bib}
+\addbibresource{./content/lijun.bib}
 \AtBeginBibliography{\footnotesize}
 
 % prevent certain fields in references from printing in bibliography
@@ -76,21 +76,21 @@
 \AtEveryBibitem{\clearlist{note}}
 
 \AtEveryBibitem{%
-	\ifentrytype{online}
-	{}
-	{\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}}
+    \ifentrytype{online}
+    {}
+    {\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}}
 
 % define custom bib environment
 \defbibenvironment{mypubs}
-{\list
-	{}
-	{\setlength{\leftmargin}{\bibhang}%
-	 \setlength{\itemindent}{-\leftmargin}%
-	 \setlength{\itemsep}{\bibitemsep}%
-	 \setlength{\parsep}{\bibparsep}}
-}
-{\endlist}
-{\item}
+ {\list
+     {}
+     {\setlength{\leftmargin}{\bibhang}%
+      \setlength{\itemindent}{-\leftmargin}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}}
+  {\endlist}
+  {\item}
+
 
 %-------------------------------------------------------------------------------
 % PERSONAL INFORMATION
