@@ -320,8 +320,4 @@ TSWLatexianTemp*
 *.DS_Store
 
 ## Target pdf
-coverletter.pdf
-resume*.pdf
-cv.pdf
-teachingstatement.pdf
-
+*.pdf
