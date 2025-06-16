@@ -243,8 +243,9 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 
 ## 📝 License
 
-This project is based on the [Awesome-CV](https://github.com/posquit0/Awesome-CV) template by Claud D. Park.  
-Licensed under [CC BY-SA 4.0](LICENSE).
+This resume is my personal work. Unless otherwise noted, all content is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
+
+This project is based on the [Awesome-CV](https://github.com/posquit0/Awesome-CV) template by Claud D. Park.
 
 ---
 
