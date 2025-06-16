@@ -313,13 +313,80 @@ TSWLatexianTemp*
 # Uncomment the next line to have this generated file ignored.
 #*Notes.bib
 
-### Editor ###
-## Vim & Emacs temp files:
+### Editor & IDE Files ###
+## Vim & Neovim
 .*sw[op]
 *~
+.*.tmp
+.netrwhist
+*~
+Session.vim
+Sessionx.vim
+.viminfo
+.vimrc.local
+.nvimrc.local
 
-## VS Code settings (local session info):
+## Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+## VS Code
 .vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
+
+## JetBrains IDEs (IntelliJ, WebStorm, etc.)
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+## Sublime Text
+*.sublime-project
+*.sublime-workspace
+*.sublime-session
+*.sublime-snippet
+
+## Atom
+.atom/
+
+## Brackets
+.brackets.json
+
+## TextMate
+*.tmproj
+*.tmproject
+tmtags
+
+## Nano
+*.save
+*.swp
+
+## Other editors
+*~
+.#*
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 ### Mac OS X ###
 ## Mac OS X metadata files:

@@ -66,11 +66,24 @@ stats: all
 	@echo "=================="
 	@for pdf in $(PDF_FILES); do \
 		if [ -f "$$pdf" ]; then \
-			echo "$$(basename $$pdf): $$(du -h $$pdf | cut -f1)"; \
+			size=$$(du -k "$$pdf" | cut -f1); \
+			echo "$$(basename $$pdf): $${size}K"; \
 		fi; \
 	done
 	@echo "Build directory size: $$(du -sh $(BUILD_DIR) | cut -f1)"
-	@echo "Total PDF count: $$(ls -1 $(BUILD_DIR)/*.pdf 2>/dev/null | wc -l)"
+	@echo "Total PDF count:        $$(ls $(BUILD_DIR)/*.pdf 2>/dev/null | wc -l | tr -d ' ')"
+	@echo ""
+	@echo "Content Statistics:"
+	@echo "==================="
+	@echo "LaTeX files: $$(find . -name "*.tex" | wc -l | tr -d ' ') files"
+	@echo "Total lines: $$(find . -name "*.tex" -exec wc -l {} + | tail -1 | awk '{print $$1}') lines"
+	@echo "Content files: $$(ls content/*.tex 2>/dev/null | wc -l | tr -d ' ') files"
+	@echo ""
+	@echo "Repository Health:"
+	@echo "=================="
+	@echo "Git repo size: $$(du -sh .git 2>/dev/null | cut -f1 || echo 'N/A')"
+	@echo "Last commit: $$(git log -1 --format='%h %s' 2>/dev/null || echo 'N/A')"
+	@echo "Uncommitted changes: $$(git status --porcelain 2>/dev/null | wc -l | tr -d ' ' || echo 'N/A')"
 
 # Pattern rule to build PDFs directly in build directory
 $(BUILD_DIR)/%.pdf: %.tex setup
