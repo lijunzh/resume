@@ -34,7 +34,6 @@ help:
 	@echo "  dev-setup:  Setup development environment"
 	@echo "  backup:     Create backup of current state"
 	@echo "  optimize:   Optimize PDF file sizes"
-	@echo "  new-section: Create new content section from template"
 	@echo "  install-hooks: Install git pre-commit hooks"
 	@echo "  version:    Create timestamped copies in build/versions/"
 	@echo "  package:    Create release archive"
@@ -167,10 +166,7 @@ backup:
 optimize: all
 	@./scripts/dev-utils.sh optimize
 
-# Template and utility shortcuts
-.PHONY: new-section install-hooks
-new-section:
-	@./scripts/new-section.sh
-
+# Development utility shortcuts
+.PHONY: install-hooks
 install-hooks:
 	@./scripts/dev-utils.sh hooks
