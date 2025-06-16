@@ -1,0 +1,24 @@
+# Optional: Hybrid approach - use some generic hooks alongside your custom one
+repos:
+  - repo: local
+    hooks:
+      - id: latex-resume-checks
+        name: LaTeX Resume Quality Checks
+        entry: .githooks/pre-commit
+        language: script
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+  
+  # Generic hooks for basic file hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+        types: [text]
+        exclude: '\.pdf$'
+      - id: end-of-file-fixer
+        types: [text]
+        exclude: '\.pdf$'
+      - id: check-yaml
+      - id: check-toml

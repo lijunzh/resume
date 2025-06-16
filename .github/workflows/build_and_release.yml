@@ -14,39 +14,50 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up TeX Live
+      - name: Cache TeX Live packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/texlive
+          key: texlive-${{ runner.os }}-${{ hashFiles('**/*.tex', '**/*.cls', '**/*.bib') }}
+          restore-keys: |
+            texlive-${{ runner.os }}-
+
+      - name: Set up TeX Live and lint
         uses: xu-cheng/texlive-action@v2
         with:
           scheme: small
           run: |
-            apk add make grep
+            apk add --no-cache make grep
             make check-deps
             make lint
 
   build:
     runs-on: ubuntu-latest
-    needs: lint
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up TeX Live and build PDFs
+      - name: Cache TeX Live packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/texlive
+          key: texlive-${{ runner.os }}-${{ hashFiles('**/*.tex', '**/*.cls', '**/*.bib') }}
+          restore-keys: |
+            texlive-${{ runner.os }}-
+
+      - name: Set up TeX Live, build, and optimize PDFs
         uses: xu-cheng/texlive-action@v2
         with:
           scheme: full
           run: |
-            apk add make
+            apk add --no-cache make bc ghostscript
             make all
+            make optimize
 
       - name: List generated files
         run: |
           ls -la build/
           du -h build/*.pdf
-
-      - name: Check file existence
-        uses: andstor/file-existence-action@v3
-        with:
-          files: "build/resume.pdf, build/cv.pdf, build/coverletter.pdf, build/teachingstatement.pdf"
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4

@@ -64,20 +64,25 @@ sudo apt-get install texlive-full make
 | `make all` | Build all documents |
 | `make resume` | Build only resume.pdf |
 | `make cv` | Build only cv.pdf |
+| `make coverletter` | Build only coverletter.pdf |
+| `make teachingstatement` | Build only teachingstatement.pdf |
 | `make clean` | Remove all build artifacts |
+| `make setup` | Initial project setup (directories + git hooks) |
 | `make lint` | Check for common issues |
 | `make stats` | Show build statistics |
-| `make validate` | Verify PDFs are correct |
 | `make watch` | Watch for changes and rebuild automatically |
 | `make watch doc=resume` | Watch specific document (faster) |
-| `make package` | Create release archive |
+| `make optimize` | Validate and optimize PDF file sizes |
 | `make help` | Show all available targets |
 
 ### Development Workflow
 
 ```bash
+# Initial setup (creates build directory and installs git hooks)
+make setup
+
 # Make changes to content
-vim content/experience.tex
+# Edit content/experience.tex with your preferred editor
 
 # Live preview during editing (efficient for single document)
 make watch doc=resume
@@ -88,8 +93,8 @@ make watch
 # Check for issues
 make lint
 
-# Validate final output
-make validate
+# Validate and optimize PDFs for production
+make optimize
 ```
 
 ## 📁 Project Structure
@@ -114,8 +119,8 @@ make validate
 ├── 🎨 Styling
 │   └── awesome-cv.cls          # LaTeX class file
 ├── 🔧 Build System
-│   ├── Makefile               # Build automation
-│   ├── .github/workflows/     # CI/CD pipelines
+│   ├── Makefile               # Streamlined build automation
+│   ├── .github/workflows/     # CI/CD pipelines  
 │   └── build/                 # Generated output files
 └── 📚 Documentation
     ├── README.md              # This file
@@ -175,21 +180,27 @@ make validate
 
 ```bash
 # Run all quality checks
-make lint validate stats
+make lint optimize stats
 
 # Test specific scenarios
 make watch doc=cv      # Live editing
-make package           # Release preparation
+make optimize          # PDF size optimization
 make clean && make all # Clean build
 ```
 
 ## 🚀 Continuous Integration
 
-This project uses GitHub Actions for automated quality assurance:
+This project uses GitHub Actions for automated quality assurance and releases:
 
-- **Pull Request Checks**: Linting and build validation
-- **Automated Releases**: Tagged releases with built PDFs  
-- **Multi-platform Testing**: Ensures compatibility
+- **Pull Request Checks**: Linting and build validation for all contributions
+- **Automated Releases**: Tagged releases with built PDFs on every main branch push
+- **Multi-platform Testing**: Ensures compatibility across different environments
+
+**Release Process**: Simply push to the `main` branch and GitHub Actions will automatically:
+1. Lint and validate the code
+2. Build all PDF documents  
+3. Create a timestamped release with downloadable PDFs
+4. Archive the release package for distribution
 
 ## 🤝 Contributing
 
@@ -200,15 +211,17 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Run `make lint validate`
+4. Run `make lint optimize`
 5. Submit a pull request
 
 ## 📊 Project Stats
 
 - **Languages**: LaTeX, Makefile, YAML
+- **Build System**: Streamlined 9-target Makefile with smart dependency management
 - **Build Time**: ~30-60 seconds for all documents
-- **Dependencies**: XeLaTeX, latexmk, biber
+- **Dependencies**: XeLaTeX, latexmk, biber, ghostscript (for optimization)
 - **Output**: 4 PDF documents, ~200KB total
+- **CI/CD**: Automated linting, building, and releasing
 
 ## 🆘 Troubleshooting
 

@@ -29,9 +29,8 @@ help:
 	@echo "  lint:       Check LaTeX files for common issues"
 	@echo "  stats:      Show build statistics and file sizes"
 	@echo "  watch:      Watch for file changes and rebuild (e.g., make watch doc=resume)"
-	@echo "  validate:   Validate all PDFs were built correctly"
-	@echo "  optimize:   Optimize PDF file sizes"
-	@echo "  package:    Create release archive"
+	@echo "  optimize:   Validate and optimize PDF file sizes"
+
 
 # Setup build directory and install git hooks for development
 .PHONY: setup
@@ -98,12 +97,6 @@ clean:
 all: $(BASE_FILES)
 	@echo "Built all versions: $(PDF_FILES)"
 
-# Target to create a release package
-.PHONY: package
-package: all
-	@cd $(BUILD_DIR) && tar -czf lijun_zhu_resume_$(shell date +%Y%m%d).tar.gz *.pdf
-	@echo "Release package created: $(BUILD_DIR)/lijun_zhu_resume_$(shell date +%Y%m%d).tar.gz"
-
 # Phony targets for each base file, explicitly depending on their .pdf counterparts
 .PHONY: $(BASE_FILES)
 $(BASE_FILES): %: %.pdf 
@@ -133,9 +126,9 @@ watch: setup check-deps
 		done; \
 	fi
 
-# Validate all PDFs were built correctly
-.PHONY: validate
-validate: all
+# Validate and optimize PDF files
+.PHONY: optimize
+optimize: all
 	@echo "Validating built PDFs..."
 	@for pdf in $(PDF_FILES); do \
 		if [ ! -f "$$pdf" ]; then \
@@ -149,10 +142,6 @@ validate: all
 		echo "✓ $$(basename $$pdf) is valid ($$(du -h $$pdf | cut -f1))"; \
 	done
 	@echo "All PDFs validated successfully!"
-
-# Optimize PDF file sizes using Ghostscript
-.PHONY: optimize
-optimize: all
 	@echo "Optimizing PDF files..."
 	@if ! command -v gs >/dev/null 2>&1; then \
 		echo "⚠️  Ghostscript not found - PDF optimization skipped"; \

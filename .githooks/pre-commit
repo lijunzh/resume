@@ -6,6 +6,18 @@
 
 set -e
 
+# Configuration (can be overridden with environment variables)
+: "${SKIP_BUILD_TEST:=false}"
+: "${SKIP_OPTIMIZATION:=false}"
+: "${VERBOSE:=false}"
+
+# Function for verbose output
+verbose() {
+    if [ "$VERBOSE" = "true" ]; then
+        echo "$@"
+    fi
+}
+
 echo "🔍 Running pre-commit checks..."
 
 # Check if we're in the right directory
@@ -21,21 +33,18 @@ command_exists() {
 
 # Check required dependencies
 echo "📋 Checking dependencies..."
-if ! command_exists make; then
-    echo "❌ Error: make is required but not installed"
-    exit 1
-fi
+for cmd in make latexmk xelatex; do
+    if ! command_exists "$cmd"; then
+        echo "❌ Error: $cmd is required but not installed"
+        case "$cmd" in
+            make) echo "💡 Install build-essential (Ubuntu) or Xcode tools (macOS)" ;;
+            latexmk|xelatex) echo "💡 Install TeX Live: https://www.tug.org/texlive/" ;;
+        esac
+        exit 1
+    fi
+done
 
-if ! command_exists latexmk; then
-    echo "❌ Error: latexmk is required but not installed"
-    exit 1
-fi
-
-if ! command_exists xelatex; then
-    echo "❌ Error: xelatex is required but not installed"
-    exit 1
-fi
-
+verbose "✅ All required dependencies found"
 echo "✅ Dependencies check passed"
 
 # Run linting
@@ -48,29 +57,33 @@ fi
 
 echo "✅ Lint checks passed"
 
-# Try to build all documents
-echo "🔨 Testing build process..."
-if ! make clean >/dev/null 2>&1; then
-    echo "❌ Error: Failed to clean build directory"
-    exit 1
+# Build test (can be skipped with SKIP_BUILD_TEST=true)
+if [ "$SKIP_BUILD_TEST" != "true" ]; then
+    echo "🔨 Testing build process..."
+    if ! make clean >/dev/null 2>&1; then
+        echo "❌ Error: Failed to clean build directory"
+        exit 1
+    fi
+
+    if ! make all >/dev/null 2>&1; then
+        echo "❌ Error: Build process failed"
+        echo "💡 Check build logs in build/*.log"
+        exit 1
+    fi
+
+    echo "✅ Build test passed"
 fi
 
-if ! make all >/dev/null 2>&1; then
-    echo "❌ Error: Build process failed"
-    echo "💡 Check build logs in build/*.log"
-    exit 1
+# Validate and optimize generated PDFs (can be skipped with SKIP_OPTIMIZATION=true)
+if [ "$SKIP_OPTIMIZATION" != "true" ]; then
+    echo "📄 Validating and optimizing PDFs..."
+    if ! make optimize >/dev/null 2>&1; then
+        echo "❌ Error: PDF validation and optimization failed"
+        exit 1
+    fi
+
+    echo "✅ PDF validation and optimization passed"
 fi
-
-echo "✅ Build test passed"
-
-# Validate generated PDFs
-echo "📄 Validating PDFs..."
-if ! make validate >/dev/null 2>&1; then
-    echo "❌ Error: PDF validation failed"
-    exit 1
-fi
-
-echo "✅ PDF validation passed"
 
 # Check for large files
 echo "📏 Checking file sizes..."
