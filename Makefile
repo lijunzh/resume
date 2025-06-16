@@ -25,19 +25,25 @@ help:
 	@echo "  $(BASE_FILES): Build specific versions (e.g., make resume)"
 	@echo "  all:        Build all versions"
 	@echo "  clean:      Remove generated files"
-	@echo "  setup:      Create necessary directories"
+	@echo "  setup:      Initial project setup (directories + git hooks)"
 	@echo "  lint:       Check LaTeX files for common issues"
 	@echo "  stats:      Show build statistics and file sizes"
 	@echo "  watch:      Watch for file changes and rebuild (e.g., make watch doc=resume)"
 	@echo "  validate:   Validate all PDFs were built correctly"
 	@echo "  optimize:   Optimize PDF file sizes"
-	@echo "  install-hooks: Install git pre-commit hooks"
 	@echo "  package:    Create release archive"
 
-# Setup build directory
+# Setup build directory and install git hooks for development
 .PHONY: setup
 setup:
 	@mkdir -p $(BUILD_DIR)
+	@if [ -d ".git" ] && [ -f ".githooks/pre-commit" ] && [ ! -f ".git/hooks/pre-commit" ]; then \
+		echo "Installing git pre-commit hooks..."; \
+		mkdir -p .git/hooks; \
+		cp .githooks/pre-commit .git/hooks/pre-commit; \
+		chmod +x .git/hooks/pre-commit; \
+		echo "✅ Pre-commit hook installed"; \
+	fi
 
 # Lint LaTeX files
 .PHONY: lint
@@ -144,12 +150,30 @@ validate: all
 	done
 	@echo "All PDFs validated successfully!"
 
-# Development utilities shortcuts
+# Optimize PDF file sizes using Ghostscript
 .PHONY: optimize
 optimize: all
-	@./scripts/dev-utils.sh optimize
-
-# Development utility shortcuts
-.PHONY: install-hooks
-install-hooks:
-	@./scripts/dev-utils.sh hooks
+	@echo "Optimizing PDF files..."
+	@if ! command -v gs >/dev/null 2>&1; then \
+		echo "⚠️  Ghostscript not found - PDF optimization skipped"; \
+		echo "💡 Install with: brew install ghostscript"; \
+		exit 1; \
+	fi
+	@for pdf in $(BUILD_DIR)/*.pdf; do \
+		if [ -f "$$pdf" ]; then \
+			original_size=$$(stat -f%z "$$pdf" 2>/dev/null || stat -c%s "$$pdf" 2>/dev/null); \
+			gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress \
+			   -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$${pdf}.opt" "$$pdf"; \
+			if [ -f "$${pdf}.opt" ]; then \
+				optimized_size=$$(stat -f%z "$${pdf}.opt" 2>/dev/null || stat -c%s "$${pdf}.opt" 2>/dev/null); \
+				if [ "$$optimized_size" -lt "$$original_size" ]; then \
+					mv "$${pdf}.opt" "$$pdf"; \
+					echo "✅ Optimized $$(basename $$pdf): $$(echo "scale=1; $$original_size/1024" | bc)KB → $$(echo "scale=1; $$optimized_size/1024" | bc)KB"; \
+				else \
+					rm "$${pdf}.opt"; \
+					echo "ℹ️  $$(basename $$pdf) already optimized"; \
+				fi; \
+			fi; \
+		fi; \
+	done
+	@echo "PDF optimization complete!"
