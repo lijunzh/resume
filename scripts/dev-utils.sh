@@ -17,7 +17,6 @@ NC='\033[0m' # No Color
 
 # Configuration
 BACKUP_DIR="backups"
-VERSIONS_DIR="build/versions"
 
 # Helper functions
 log_info() {
@@ -203,7 +202,6 @@ setup_dev() {
     
     # Create necessary directories
     mkdir -p "$BACKUP_DIR"
-    mkdir -p "$VERSIONS_DIR"
     
     # Check dependencies
     log_info "Checking dependencies..."

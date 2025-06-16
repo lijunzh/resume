@@ -30,7 +30,6 @@ help:
 	@echo "  stats:      Show build statistics and file sizes"
 	@echo "  watch:      Watch for file changes and rebuild (e.g., make watch doc=resume)"
 	@echo "  validate:   Validate all PDFs were built correctly"
-	@echo "  dev-setup:  Setup development environment"
 	@echo "  backup:     Create backup of current state"
 	@echo "  optimize:   Optimize PDF file sizes"
 	@echo "  install-hooks: Install git pre-commit hooks"
@@ -147,10 +146,7 @@ validate: all
 	@echo "All PDFs validated successfully!"
 
 # Development utilities shortcuts
-.PHONY: dev-setup backup optimize
-dev-setup:
-	@./scripts/dev-utils.sh setup
-
+.PHONY: backup optimize
 backup:
 	@./scripts/dev-utils.sh backup
 
