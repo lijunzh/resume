@@ -68,7 +68,8 @@ sudo apt-get install texlive-full make
 | `make lint` | Check for common issues |
 | `make stats` | Show build statistics |
 | `make validate` | Verify PDFs are correct |
-| `make edit doc=resume` | Continuous editing mode |
+| `make watch` | Watch for changes and rebuild automatically |
+| `make watch doc=resume` | Watch specific document (faster) |
 | `make package` | Create release archive |
 | `make help` | Show all available targets |
 
@@ -78,8 +79,11 @@ sudo apt-get install texlive-full make
 # Make changes to content
 vim content/experience.tex
 
-# Live preview during editing
-make edit doc=resume
+# Live preview during editing (efficient for single document)
+make watch doc=resume
+
+# Or watch all documents (slower but comprehensive)
+make watch
 
 # Check for issues
 make lint
@@ -174,7 +178,7 @@ make validate
 make lint validate stats
 
 # Test specific scenarios
-make edit doc=cv        # Live editing
+make watch doc=cv      # Live editing
 make package           # Release preparation
 make clean && make all # Clean build
 ```
@@ -226,10 +230,9 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 
 ## 📝 License
 
-Based on the Awesome-CV template by Claud D. Park, licensed under [CC BY-SA 4.0](LICENSE).
+This project is based on the [Awesome-CV](https://github.com/posquit0/Awesome-CV) template by Claud D. Park.  
+Licensed under [CC BY-SA 4.0](LICENSE).
 
 ---
 
 ⭐ **Star this repository if you find it useful!**
-
-Based on the Awesome-CV template by Claud D. Park, licensed under CC BY-SA 4.0.

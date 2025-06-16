@@ -25,11 +25,10 @@ help:
 	@echo "  $(BASE_FILES): Build specific versions (e.g., make resume)"
 	@echo "  all:        Build all versions"
 	@echo "  clean:      Remove generated files"
-	@echo "  edit:       Continuously build one document (e.g., make edit doc=resume)"
 	@echo "  setup:      Create necessary directories"
 	@echo "  lint:       Check LaTeX files for common issues"
 	@echo "  stats:      Show build statistics and file sizes"
-	@echo "  watch:      Watch for file changes and rebuild automatically"
+	@echo "  watch:      Watch for file changes and rebuild (e.g., make watch doc=resume)"
 	@echo "  validate:   Validate all PDFs were built correctly"
 	@echo "  dev-setup:  Setup development environment"
 	@echo "  backup:     Create backup of current state"
@@ -70,10 +69,6 @@ stats: all
 	done
 	@echo "Build directory size: $$(du -sh $(BUILD_DIR) | cut -f1)"
 	@echo "Total PDF count: $$(ls -1 $(BUILD_DIR)/*.pdf 2>/dev/null | wc -l)"
-
-edit: $(doc).tex setup check-deps
-	@echo "Starting continuous build for $(doc).tex (Ctrl+C to stop)"
-	$(LATEXMK) $(LATEXOPT) -output-directory=$(BUILD_DIR) $(CONTINUOUS) $(DEPOPT) $(BUILD_DIR)/$(doc).d $(doc)
 
 # Pattern rule to build PDFs directly in build directory
 $(BUILD_DIR)/%.pdf: %.tex setup
@@ -129,14 +124,20 @@ check-deps:
 # Include auto-generated dependencies
 -include *.d
 
-# Watch for changes and rebuild automatically
+# Watch for changes and rebuild automatically  
 .PHONY: watch
 watch: setup check-deps
-	@echo "Watching for changes... (Ctrl+C to stop)"
-	@while true; do \
-		$(MAKE) -q all || $(MAKE) all; \
-		sleep 2; \
-	done
+	@if [ -n "$(doc)" ]; then \
+		echo "Watching $(doc).tex for changes... (Ctrl+C to stop)"; \
+		$(LATEXMK) $(LATEXOPT) -output-directory=$(BUILD_DIR) $(CONTINUOUS) $(DEPOPT) $(BUILD_DIR)/$(doc).d $(doc); \
+	else \
+		echo "Watching all documents for changes... (Ctrl+C to stop)"; \
+		echo "Use 'make watch doc=<name>' to watch a specific document for better performance"; \
+		while true; do \
+			$(MAKE) -q all || $(MAKE) all; \
+			sleep 2; \
+		done; \
+	fi
 
 # Validate all PDFs were built correctly
 .PHONY: validate
