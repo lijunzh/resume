@@ -1,0 +1,44 @@
+# LaTeX Resume Project Configuration
+# This file contains build settings and project preferences
+
+# Build settings
+BUILD_PARALLEL=true
+BUILD_QUIET=false
+BUILD_DRAFT=false
+
+# File compression settings
+COMPRESS_IMAGES=true
+OPTIMIZE_PDFS=true
+MAX_PDF_SIZE_MB=5
+
+# Development settings
+AUTO_BACKUP=true
+BACKUP_COUNT_LIMIT=10
+WATCH_INTERVAL=2
+
+# Quality settings
+STRICT_LINT=false
+CHECK_TODOS=true
+CHECK_TYPOS=true
+CHECK_LINE_LENGTH=true
+MAX_LINE_LENGTH=100
+
+# Bibliography settings
+FORCE_NUMERIC_MONTHS=true
+CHECK_DUPLICATES=true
+REQUIRE_DOI=false
+
+# CI/CD settings
+ENABLE_GITHUB_ACTIONS=true
+AUTO_RELEASE=true
+RELEASE_DRAFT=false
+
+# Performance settings
+CACHE_BUILDS=true
+INCREMENTAL_BUILDS=true
+PARALLEL_JOBS=4
+
+# Output settings
+GENERATE_LOGS=true
+VERBOSE_OUTPUT=false
+TIMESTAMP_BUILDS=true

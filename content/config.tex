@@ -1,0 +1,50 @@
+% Common configuration for all resume documents
+% Usage: \input{content/config.tex}
+
+% Common packages and settings
+\usepackage[
+	backend=biber,
+	style=ieee,
+	sorting=ydnt,
+	defernumbers=true,
+	refsection=section
+]{biblatex}
+
+% Bibliography resource
+\addbibresource{./content/lijun.bib}
+\AtBeginBibliography{\footnotesize}
+
+% Clean up bibliography fields
+\AtEveryBibitem{\clearfield{issn}}
+\AtEveryBibitem{\clearlist{issn}}
+\AtEveryBibitem{\clearfield{language}}
+\AtEveryBibitem{\clearlist{language}}
+\AtEveryBibitem{\clearfield{doi}}
+\AtEveryBibitem{\clearlist{doi}}
+\AtEveryBibitem{\clearfield{url}}
+\AtEveryBibitem{\clearlist{url}}
+\AtEveryBibitem{\clearfield{eprint}}
+\AtEveryBibitem{\clearlist{eprint}}
+\AtEveryBibitem{\clearfield{note}}
+\AtEveryBibitem{\clearlist{note}}
+
+\AtEveryBibitem{%
+    \ifentrytype{online}
+    {}
+    {\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}}
+
+% Custom bibliography environment
+\defbibenvironment{mypubs}
+ {\list
+     {}
+     {\setlength{\leftmargin}{\bibhang}%
+      \setlength{\itemindent}{-\leftmargin}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}}
+  {\endlist}
+  {\item}
+
+% Common styling
+\colorlet{awesome}{awesome-darknight}
+\setbool{acvSectionColorHighlight}{true}
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}

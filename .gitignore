@@ -24,8 +24,8 @@
 # *.eps
 # *.pdf
 
-## Generated if empty string is given at "Please type another file name for output:"
-.pdf
+## Generated PDFs in root (legacy)
+*.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
@@ -50,6 +50,9 @@ rubber.cache
 ## Build tool directories for auxiliary files
 # latexrun
 latex.out/
+
+# Build directory
+build/
 
 ## Auxiliary and intermediate files from other packages:
 # algorithms
@@ -315,9 +318,9 @@ TSWLatexianTemp*
 .*sw[op]
 *~
 
+## VS Code settings (local session info):
+.vscode/
+
 ### Mac OS X ###
 ## Mac OS X metadata files:
 *.DS_Store
-
-## Target pdf
-*.pdf

@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+#
+# Pre-commit hook for LaTeX resume project
+# Runs quality checks before allowing commits
+#
+
+set -e
+
+echo "🔍 Running pre-commit checks..."
+
+# Check if we're in the right directory
+if [ ! -f "Makefile" ] || [ ! -f "resume.tex" ]; then
+    echo "❌ Error: Not in LaTeX resume project root directory"
+    exit 1
+fi
+
+# Function to check if command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check required dependencies
+echo "📋 Checking dependencies..."
+if ! command_exists make; then
+    echo "❌ Error: make is required but not installed"
+    exit 1
+fi
+
+if ! command_exists latexmk; then
+    echo "❌ Error: latexmk is required but not installed"
+    exit 1
+fi
+
+if ! command_exists xelatex; then
+    echo "❌ Error: xelatex is required but not installed"
+    exit 1
+fi
+
+echo "✅ Dependencies check passed"
+
+# Run linting
+echo "🧹 Running lint checks..."
+if ! make lint; then
+    echo "❌ Error: Lint checks failed"
+    echo "💡 Fix the issues above before committing"
+    exit 1
+fi
+
+echo "✅ Lint checks passed"
+
+# Try to build all documents
+echo "🔨 Testing build process..."
+if ! make clean >/dev/null 2>&1; then
+    echo "❌ Error: Failed to clean build directory"
+    exit 1
+fi
+
+if ! make all >/dev/null 2>&1; then
+    echo "❌ Error: Build process failed"
+    echo "💡 Check build logs in build/*.log"
+    exit 1
+fi
+
+echo "✅ Build test passed"
+
+# Validate generated PDFs
+echo "📄 Validating PDFs..."
+if ! make validate >/dev/null 2>&1; then
+    echo "❌ Error: PDF validation failed"
+    exit 1
+fi
+
+echo "✅ PDF validation passed"
+
+# Check for large files
+echo "📏 Checking file sizes..."
+large_files=$(find build -name "*.pdf" -size +5M 2>/dev/null || true)
+if [ -n "$large_files" ]; then
+    echo "⚠️  Warning: Large PDF files detected:"
+    echo "$large_files"
+    echo "💡 Consider optimizing images or content"
+fi
+
+# Check git status
+staged_files=$(git diff --cached --name-only)
+if echo "$staged_files" | grep -q "\.tex$\|\.bib$\|\.cls$"; then
+    echo "📝 LaTeX files detected in commit"
+    
+    # Check for TODO/FIXME in staged files
+    if git diff --cached | grep -E "TODO|FIXME|XXX" >/dev/null; then
+        echo "⚠️  Warning: TODO/FIXME comments found in staged changes"
+        echo "💡 Consider resolving these before committing"
+    fi
+fi
+
+echo ""
+echo "🎉 All pre-commit checks passed!"
+echo "✨ Ready to commit changes"
+echo ""
+
+exit 0
