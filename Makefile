@@ -34,7 +34,6 @@ help:
 	@echo "  backup:     Create backup of current state"
 	@echo "  optimize:   Optimize PDF file sizes"
 	@echo "  install-hooks: Install git pre-commit hooks"
-	@echo "  version:    Create timestamped copies in build/versions/"
 	@echo "  package:    Create release archive"
 
 # Setup build directory
@@ -94,15 +93,6 @@ clean:
 .PHONY: all
 all: $(BASE_FILES)
 	@echo "Built all versions: $(PDF_FILES)"
-
-# Target to version PDFs with timestamp
-.PHONY: version
-version: all
-	@mkdir -p $(BUILD_DIR)/versions
-	@for pdf in $(PDF_FILES); do \
-		cp $$pdf $(BUILD_DIR)/versions/$${pdf%.pdf}_$(shell date +%Y%m%d_%H%M%S).pdf; \
-	done
-	@echo "Versioned PDFs created in $(BUILD_DIR)/versions/"
 
 # Target to create a release package
 .PHONY: package
