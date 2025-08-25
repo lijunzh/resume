@@ -29,72 +29,8 @@
 % Configure page margins with geometry
 \geometry{left=1.4cm, top=1.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
 
-% Color for highlights
-% Awesome Colors: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink, awesome-orange
-%                 awesome-nephritis, awesome-concrete, awesome-darknight
-\colorlet{awesome}{awesome-darknight}
-% Uncomment if you would like to specify your own color
-% \definecolor{awesome}{HTML}{CA63A8}
-
-% Colors for text
-% Uncomment if you would like to specify your own color
-% \definecolor{darktext}{HTML}{414141}
-% \definecolor{text}{HTML}{333333}
-% \definecolor{graytext}{HTML}{5D5D5D}
-% \definecolor{lighttext}{HTML}{999999}
-% \definecolor{sectiondivider}{HTML}{5D5D5D}
-
-% Set false if you don't want to highlight section with awesome color
-\setbool{acvSectionColorHighlight}{true}
-
-% If you would like to change the social information separator from a pipe (|) to something else
-\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
-
-% External packages
-\usepackage[
-	backend=biber,
-	style=ieee,
-	sorting=ydnt,
-	defernumbers=true,
-	refsection=section
-	]{biblatex}
-\addbibresource{./content/lijun.bib}
-\AtBeginBibliography{\footnotesize}
-
-% prevent certain fields in references from printing in bibliography
-\AtEveryBibitem{\clearfield{issn}}
-\AtEveryBibitem{\clearlist{issn}}
-
-\AtEveryBibitem{\clearfield{language}}
-\AtEveryBibitem{\clearlist{language}}
-
-\AtEveryBibitem{\clearfield{doi}}
-\AtEveryBibitem{\clearlist{doi}}
-
-\AtEveryBibitem{\clearfield{url}}
-\AtEveryBibitem{\clearlist{url}}
-
-\AtEveryBibitem{\clearfield{eprint}}
-\AtEveryBibitem{\clearlist{eprint}}
-
-\AtEveryBibitem{\clearfield{note}}
-\AtEveryBibitem{\clearlist{note}}
-
-\AtEveryBibitem{%
-    \ifentrytype{online}
-    {}
-    {\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}}
-
-% define custom bib environment
-\defbibenvironment{mypubs}
- {\list
-     {}
-     {\setlength{\leftmargin}{\bibhang}%
-      \setlength{\itemindent}{-\leftmargin}%
-      \setlength{\itemsep}{\bibitemsep}%
-      \setlength{\parsep}{\bibparsep}}}
-  {\endlist}
-  {\item}
+% Load common configuration
+\input{content/config.tex}
 
 
 %-------------------------------------------------------------------------------

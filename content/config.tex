@@ -1,7 +1,19 @@
-% Common configuration for all resume documents
-% Usage: \input{content/config.tex}
+% Common configuration for CV and Resume documents
+% Usage: 
+%   For CV: \def\topmargin{1.8cm}\def\bottommargin{1.8cm}\input{content/config.tex}
+%   For Resume: \def\topmargin{1.0cm}\def\bottommargin{1.5cm}\input{content/config.tex}
+% Note: \documentclass must be declared in the main file before including this
 
-% Common packages and settings
+% Color for highlights
+\colorlet{awesome}{awesome-darknight}
+
+% Set false if you don't want to highlight section with awesome color
+\setbool{acvSectionColorHighlight}{true}
+
+% If you would like to change the social information separator from a pipe (|) to something else
+\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+
+% Bibliography packages and settings
 \usepackage[
 	backend=biber,
 	style=ieee,
@@ -43,8 +55,3 @@
       \setlength{\parsep}{\bibparsep}}}
   {\endlist}
   {\item}
-
-% Common styling
-\colorlet{awesome}{awesome-darknight}
-\setbool{acvSectionColorHighlight}{true}
-\renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
